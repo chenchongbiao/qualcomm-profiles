@@ -1,0 +1,2 @@
+# We have to adjust repo priority to properly install updated mpv packages
+task-qualcomm: package-installs-apt-preferences
