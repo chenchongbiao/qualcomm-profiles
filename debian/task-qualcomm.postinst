@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        cat > /etc/apt/preferences.d/qcom-fastrpc1 <<'EOF'
+Package: qcom-fastrpc1
+Pin: release *
+Pin-Priority: -1
+
+Package: qcom-fastrpc-dev
+Pin: release *
+Pin-Priority: -1
+EOF
+        ;;
+esac
+
+#DEBHELPER#
+exit 0

@@ -5,6 +5,7 @@ set -e
 
 case $1 in
     remove)
+        rm -f /etc/apt/preferences.d/qcom-fastrpc1
         conflicts="
         /usr/lib/modprobe.d/blacklist-qcom-camera.conf
         /etc/kernel/postinst.d/zzz-update-dtb
