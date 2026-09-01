@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # HDMI workaround: add clk_ignore_unused to kernel cmdline (fixes #xxxx)
+        if [ -f /etc/kernel/cmdline ]; then
+            if ! grep -q 'clk_ignore_unused' /etc/kernel/cmdline; then
+                echo "Adding clk_ignore_unused to /etc/kernel/cmdline (HDMI workaround)..."
+                sed -i 's/[[:space:]]*$/ clk_ignore_unused/' /etc/kernel/cmdline
+                # Update bootloader entries
+                if command -v kernel-install >/dev/null 2>&1 && [ -f /boot/vmlinuz-"$(uname -r)" ]; then
+                    kernel-install add "$(uname -r)" /boot/vmlinuz-"$(uname -r)" || true
+                fi
+            fi
+        fi
+        ;;
+esac
+
+#DEBHELPER#
+exit 0
